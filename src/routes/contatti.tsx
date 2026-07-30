@@ -31,7 +31,7 @@ function Contact() {
     message: "",
   });
 
-  const mailto = `mailto:info@alice-software.dev?subject=${encodeURIComponent(
+  const mailto = `mailto:marco.battisti004@gmail.com?subject=${encodeURIComponent(
     `Richiesta preventivo — ${form.company || form.name || "nuovo progetto"}`,
   )}&body=${encodeURIComponent(
     `Nome: ${form.name}\nAzienda: ${form.company}\nEmail: ${form.email}\nModulo di interesse: ${form.module}\n\n${form.message}`,
@@ -134,10 +134,10 @@ function Contact() {
             <Mail className="h-5 w-5 text-primary" />
             <h2 className="mt-3 font-semibold">Email</h2>
             <a
-              href="mailto:info@alice-software.dev"
+              href="mailto:marco.battisti004@gmail.com"
               className="mt-1 block text-sm text-muted-foreground hover:text-foreground"
             >
-              info@alice-software.dev
+              marco.battisti004@gmail.com
             </a>
           </div>
           <div className="card-surface p-6">

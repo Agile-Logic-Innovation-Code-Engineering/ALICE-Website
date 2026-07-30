@@ -41,8 +41,8 @@ export function SiteFooter() {
           <h3 className="text-sm font-semibold">Contatti</h3>
           <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
             <li>
-              <a href="mailto:info@alice-software.dev" className="hover:text-foreground">
-                info@alice-software.dev
+              <a href="mailto:marco.battisti004@gmail.com" className="hover:text-foreground">
+                marco.battisti004@gmail.com
               </a>
             </li>
             <li>
