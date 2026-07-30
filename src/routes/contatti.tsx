@@ -143,7 +143,7 @@ function Contact() {
           <div className="card-surface p-6">
             <Phone className="h-5 w-5 text-primary" />
             <h2 className="mt-3 font-semibold">Telefono</h2>
-            <p className="mt-1 text-sm text-muted-foreground">+39 000 000 0000</p>
+            <p className="mt-1 text-sm text-muted-foreground">+39 339 610 8318</p>
           </div>
           <div className="card-surface p-6">
             <MapPin className="h-5 w-5 text-primary" />
