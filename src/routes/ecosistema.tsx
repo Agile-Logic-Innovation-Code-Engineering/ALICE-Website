@@ -1,0 +1,116 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { Check, Minus } from "lucide-react";
+import { PROJECTS, STATUS } from "@/data/alice";
+import { StatusBadge, STATUS_DOT } from "@/components/StatusBadge";
+
+export const Route = createFileRoute("/ecosistema")({
+  head: () => ({
+    meta: [
+      { title: "Ecosistema ALICE — Cardinal, Underworld, Light-Cube e Yui" },
+      {
+        name: "description",
+        content:
+          "Tutti i progetti dell'ecosistema ALICE: ruolo, piattaforme supportate, funzionalità e stato di sviluppo di ciascun modulo.",
+      },
+      { property: "og:title", content: "Ecosistema ALICE — i moduli della piattaforma" },
+      {
+        property: "og:description",
+        content: "Ruolo, piattaforme e stato di sviluppo di ogni applicazione ALICE.",
+      },
+    ],
+  }),
+  component: Ecosystem,
+});
+
+function Ecosystem() {
+  return (
+    <div className="mx-auto max-w-6xl px-6 py-20">
+      <h1 className="text-4xl font-bold md:text-5xl">Ecosistema</h1>
+      <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+        Ogni progetto può funzionare in modo indipendente oppure integrarsi con gli altri attraverso
+        Cardinal. Qui trovate il quadro completo, con lo stato di avanzamento aggiornato.
+      </p>
+
+      <div className="mt-8 flex flex-wrap gap-2">
+        {Object.entries(STATUS).map(([key, s]) => (
+          <span
+            key={key}
+            className="inline-flex items-center gap-2 rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground"
+          >
+            <span
+              className={`h-1.5 w-1.5 rounded-full ${STATUS_DOT[key as keyof typeof STATUS_DOT]}`}
+              aria-hidden
+            />
+            {s.label}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-12 overflow-x-auto rounded-xl border border-border">
+        <table className="w-full min-w-[720px] text-left text-sm">
+          <thead className="bg-secondary/60 text-xs uppercase tracking-wider text-muted-foreground">
+            <tr>
+              <th className="px-5 py-4 font-medium">Progetto</th>
+              <th className="px-5 py-4 font-medium">Ruolo</th>
+              <th className="px-5 py-4 font-medium">Standalone</th>
+              <th className="px-5 py-4 font-medium">Integrato</th>
+              <th className="px-5 py-4 font-medium">Piattaforme</th>
+              <th className="px-5 py-4 font-medium">Stato</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PROJECTS.map((p) => (
+              <tr key={p.name} className="border-t border-border">
+                <td className="px-5 py-4 font-display font-semibold">{p.name}</td>
+                <td className="px-5 py-4 text-muted-foreground">{p.role}</td>
+                <td className="px-5 py-4">
+                  {p.standalone ? (
+                    <Check className="h-4 w-4 text-primary" aria-label="Sì" />
+                  ) : (
+                    <Minus className="h-4 w-4 text-muted-foreground" aria-label="No" />
+                  )}
+                </td>
+                <td className="px-5 py-4">
+                  {p.integrated ? (
+                    <Check className="h-4 w-4 text-primary" aria-label="Sì" />
+                  ) : (
+                    <Minus className="h-4 w-4 text-muted-foreground" aria-label="No" />
+                  )}
+                </td>
+                <td className="px-5 py-4 text-muted-foreground">{p.platforms.join(", ")}</td>
+                <td className="px-5 py-4">
+                  <StatusBadge status={p.status} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-16 space-y-4">
+        {PROJECTS.map((p) => (
+          <article key={p.name} className="card-surface p-7">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 className="font-display text-2xl font-semibold">{p.name}</h2>
+                <p className="mt-1 font-mono text-xs uppercase tracking-widest text-primary">
+                  {p.role}
+                </p>
+              </div>
+              <StatusBadge status={p.status} />
+            </div>
+            <p className="mt-4 max-w-3xl leading-relaxed text-muted-foreground">{p.description}</p>
+            <ul className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {p.features.map((f) => (
+                <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
