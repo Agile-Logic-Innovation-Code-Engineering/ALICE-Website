@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-const aliceLogo = { url: "/alice-logo.png" }
+import { CONTACT } from "@/data/contact";
+const aliceLogo = { url: "/alice-logo.png" };
 
 export function SiteFooter() {
   return (
@@ -41,8 +42,13 @@ export function SiteFooter() {
           <h3 className="text-sm font-semibold">Contatti</h3>
           <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
             <li>
-              <a href="mailto:marco.battisti004@gmail.com" className="hover:text-foreground">
-                marco.battisti004@gmail.com
+              <a href={`mailto:${CONTACT.email}`} className="hover:text-foreground">
+                {CONTACT.email}
+              </a>
+            </li>
+            <li>
+              <a href={`tel:${CONTACT.phoneHref}`} className="hover:text-foreground">
+                {CONTACT.phone}
               </a>
             </li>
             <li>

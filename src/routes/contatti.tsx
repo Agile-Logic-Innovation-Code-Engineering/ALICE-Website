@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { PROJECTS } from "@/data/alice";
+import { PROJECTS, VERTICAL_SOLUTIONS } from "@/data/alice";
+import { CONTACT } from "@/data/contact";
 
 export const Route = createFileRoute("/contatti")({
   head: () => ({
@@ -31,7 +32,7 @@ function Contact() {
     message: "",
   });
 
-  const mailto = `mailto:marco.battisti004@gmail.com?subject=${encodeURIComponent(
+  const mailto = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
     `Richiesta preventivo — ${form.company || form.name || "nuovo progetto"}`,
   )}&body=${encodeURIComponent(
     `Nome: ${form.name}\nAzienda: ${form.company}\nEmail: ${form.email}\nModulo di interesse: ${form.module}\n\n${form.message}`,
@@ -102,6 +103,11 @@ function Contact() {
                   {p.name} — {p.role}
                 </option>
               ))}
+              {VERTICAL_SOLUTIONS.map((s) => (
+                <option key={s.id} value={s.name}>
+                  {s.name} — {s.sector}
+                </option>
+              ))}
               <option value="Non lo so ancora">Non lo so ancora</option>
             </select>
           </label>
@@ -134,21 +140,26 @@ function Contact() {
             <Mail className="h-5 w-5 text-primary" />
             <h2 className="mt-3 font-semibold">Email</h2>
             <a
-              href="mailto:marco.battisti004@gmail.com"
+              href={`mailto:${CONTACT.email}`}
               className="mt-1 block text-sm text-muted-foreground hover:text-foreground"
             >
-              marco.battisti004@gmail.com
+              {CONTACT.email}
             </a>
           </div>
           <div className="card-surface p-6">
             <Phone className="h-5 w-5 text-primary" />
             <h2 className="mt-3 font-semibold">Telefono</h2>
-            <p className="mt-1 text-sm text-muted-foreground">+39 339 610 8318</p>
+            <a
+              href={`tel:${CONTACT.phoneHref}`}
+              className="mt-1 block text-sm text-muted-foreground hover:text-foreground"
+            >
+              {CONTACT.phone}
+            </a>
           </div>
           <div className="card-surface p-6">
             <MapPin className="h-5 w-5 text-primary" />
             <h2 className="mt-3 font-semibold">Dove siamo</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Italia — lavoriamo da remoto</p>
+            <p className="mt-1 text-sm text-muted-foreground">{CONTACT.location}</p>
           </div>
         </aside>
       </div>

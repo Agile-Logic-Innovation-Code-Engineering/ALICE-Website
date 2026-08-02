@@ -313,3 +313,109 @@ export const PRICING_EXTRAS = [
 ];
 
 
+
+/* ---------- SOLUZIONI VERTICALI (gestionali già pronti) ---------- */
+
+export interface VerticalSolution {
+  id: string;
+  /** Nome commerciale del gestionale. */
+  name: string;
+  /** Settore di riferimento. */
+  sector: string;
+  tagline: string;
+  description: string;
+  /** Quota una tantum di attivazione (comprende setup e configurazione). */
+  setup: number;
+  /** Canone mensile con hosting sui server del cliente. */
+  monthlyOnPremise: number;
+  /** Canone mensile con hosting sul cloud ALICE. */
+  monthlyCloud: number;
+  status: StatusKey;
+  /** Funzioni incluse nel pacchetto. */
+  includes: string[];
+  /** Moduli opzionali attivabili sopra al pacchetto (id di PRICING_MODULES). */
+  optionalModuleIds: string[];
+}
+
+export const VERTICAL_SOLUTIONS: VerticalSolution[] = [
+  {
+    id: "asuna",
+    name: "Asuna",
+    sector: "Hotel e strutture ricettive",
+    tagline: "Gestione camere, prenotazioni e ospiti",
+    description:
+      "Il gestionale pronto all'uso per hotel, B&B e strutture ricettive: calendario camere, prenotazioni, check-in/check-out, tariffe stagionali e conti degli ospiti.",
+    setup: 2900,
+    monthlyOnPremise: 290,
+    monthlyCloud: 490,
+    status: "development",
+    includes: [
+      "Planning camere e disponibilità",
+      "Prenotazioni e check-in / check-out",
+      "Tariffe stagionali e listini",
+      "Anagrafica ospiti e conti",
+      "Fatturazione e corrispettivi",
+    ],
+    optionalModuleIds: ["documenti", "ticketing", "yui"],
+  },
+  {
+    id: "agil",
+    name: "Agil",
+    sector: "Negozi e retail",
+    tagline: "Vendite, magazzino e cassa",
+    description:
+      "Pensato per negozi e piccole catene: punto cassa, listini e promozioni, magazzino con giacenze in tempo reale e report sulle vendite.",
+    setup: 2400,
+    monthlyOnPremise: 240,
+    monthlyCloud: 420,
+    status: "development",
+    includes: [
+      "Punto cassa e scontrini",
+      "Magazzino e giacenze",
+      "Listini, sconti e promozioni",
+      "Anagrafica clienti e fidelity",
+      "Report vendite",
+    ],
+    optionalModuleIds: ["crm", "fatturazione", "yui"],
+  },
+  {
+    id: "argo",
+    name: "Argo",
+    sector: "Attrazioni turistiche e guide",
+    tagline: "Biglietti, tour e disponibilità",
+    description:
+      "Per musei, parchi, attrazioni e guide turistiche: calendario delle esperienze, biglietteria, gruppi e accompagnatori, con incassi sempre sotto controllo.",
+    setup: 2700,
+    monthlyOnPremise: 260,
+    monthlyCloud: 450,
+    status: "planned",
+    includes: [
+      "Calendario tour ed esperienze",
+      "Biglietteria e check-in",
+      "Gestione gruppi e guide",
+      "Prenotazioni online",
+      "Incassi e report",
+    ],
+    optionalModuleIds: ["crm", "documenti", "yui"],
+  },
+  {
+    id: "lizbeth",
+    name: "Lizbeth",
+    sector: "Artigiani e laboratori",
+    tagline: "Commesse, materiali e preventivi",
+    description:
+      "Il gestionale su misura per artigiani e laboratori: commesse di lavorazione, materiali impiegati, ore di lavoro, preventivi e fatture.",
+    setup: 2200,
+    monthlyOnPremise: 220,
+    monthlyCloud: 390,
+    status: "planned",
+    includes: [
+      "Commesse e stato lavorazioni",
+      "Materiali e consumi",
+      "Ore di lavoro e costi",
+      "Preventivi e fatture",
+      "Storico clienti",
+    ],
+    optionalModuleIds: ["crm", "documenti", "ticketing"],
+  },
+];

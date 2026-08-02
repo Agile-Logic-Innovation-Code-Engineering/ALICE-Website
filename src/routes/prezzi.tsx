@@ -6,6 +6,7 @@ import {
   HOSTING_OPTIONS,
   PRICING_EXTRAS,
   PRICING_MODULES,
+  VERTICAL_SOLUTIONS,
   type HostingKey,
 } from "@/data/alice";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -13,17 +14,17 @@ import { StatusBadge } from "@/components/StatusBadge";
 export const Route = createFileRoute("/prezzi")({
   head: () => ({
     meta: [
-      { title: "Prezzi ALICE — base una tantum, hosting e moduli" },
+      { title: "Prezzi ALICE — gestionale su misura o soluzioni pronte" },
       {
         name: "description",
         content:
-          "Una quota una tantum di base da € 4.950, un canone mensile secondo l'hosting scelto (on premise o cloud ALICE) e i moduli dell'ecosistema che servono davvero.",
+          "Scegli il gestionale completamente su misura (base € 4.950 + moduli) oppure una soluzione già pronta per hotel, negozi, turismo e artigiani, con canone secondo l'hosting.",
       },
-      { property: "og:title", content: "Prezzi ALICE — configura il tuo progetto" },
+      { property: "og:title", content: "Prezzi ALICE — configura il tuo gestionale" },
       {
         property: "og:description",
         content:
-          "Base una tantum + hosting + moduli: calcola una stima trasparente del tuo gestionale ALICE.",
+          "Progetto su misura o soluzione verticale pronta: calcola una stima trasparente tra una tantum, hosting e moduli.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -34,65 +35,180 @@ export const Route = createFileRoute("/prezzi")({
 
 const eur = (n: number) => new Intl.NumberFormat("it-IT").format(Math.round(n));
 
+type Mode = "custom" | "ready";
+
 function Pricing() {
+  const [mode, setMode] = useState<Mode>("custom");
   const [hostingId, setHostingId] = useState<HostingKey>("on-premise");
   const [selected, setSelected] = useState<string[]>(["crm", "fatturazione"]);
+  const [solutionId, setSolutionId] = useState<string>(VERTICAL_SOLUTIONS[0].id);
+  const [solutionExtras, setSolutionExtras] = useState<string[]>([]);
 
   const hosting = HOSTING_OPTIONS.find((h) => h.id === hostingId) ?? HOSTING_OPTIONS[0];
+  const solution =
+    VERTICAL_SOLUTIONS.find((s) => s.id === solutionId) ?? VERTICAL_SOLUTIONS[0];
+  const isCloud = hosting.id === "cloud";
 
   const moduleMonthly = (m: (typeof PRICING_MODULES)[number]) =>
-    hosting.id === "cloud" ? m.monthlyCloud : m.monthlyOnPremise;
+    isCloud ? m.monthlyCloud : m.monthlyOnPremise;
+
+  const activeModuleIds = mode === "custom" ? selected : solutionExtras;
+  const availableModules = useMemo(
+    () =>
+      mode === "custom"
+        ? PRICING_MODULES
+        : PRICING_MODULES.filter((m) => solution.optionalModuleIds.includes(m.id)),
+    [mode, solution],
+  );
 
   const totals = useMemo(() => {
-    const mods = PRICING_MODULES.filter((m) => selected.includes(m.id));
+    const mods = availableModules.filter((m) => activeModuleIds.includes(m.id));
     const modulesSetup = mods.reduce((s, m) => s + m.setup, 0);
     const modulesMonthly = mods.reduce(
-      (s, m) => s + (hosting.id === "cloud" ? m.monthlyCloud : m.monthlyOnPremise),
+      (s, m) => s + (isCloud ? m.monthlyCloud : m.monthlyOnPremise),
       0,
     );
+    const baseSetup = mode === "custom" ? BASE_SETUP : solution.setup;
+    const baseMonthly =
+      mode === "custom"
+        ? hosting.monthly
+        : isCloud
+          ? solution.monthlyCloud
+          : solution.monthlyOnPremise;
     return {
       mods,
-      modulesSetup,
-      modulesMonthly,
-      setup: BASE_SETUP + modulesSetup,
-      monthly: hosting.monthly + modulesMonthly,
+      baseSetup,
+      baseMonthly,
+      setup: baseSetup + modulesSetup,
+      monthly: baseMonthly + modulesMonthly,
     };
-  }, [selected, hosting]);
+  }, [availableModules, activeModuleIds, isCloud, mode, solution, hosting]);
 
-  const toggle = (id: string) =>
-    setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+  const toggle = (id: string) => {
+    const setter = mode === "custom" ? setSelected : setSolutionExtras;
+    setter((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+  };
 
   const groups = useMemo(() => {
     const map = new Map<string, typeof PRICING_MODULES>();
-    for (const m of PRICING_MODULES) {
+    for (const m of availableModules) {
       map.set(m.product, [...(map.get(m.product) ?? []), m]);
     }
     return [...map.entries()];
-  }, []);
+  }, [availableModules]);
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-20">
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Prezzi</p>
-      <h1 className="mt-3 text-4xl md:text-5xl">Una base chiara, poi cresce con voi</h1>
+      <h1 className="mt-3 text-4xl md:text-5xl">Due strade, un solo ecosistema</h1>
       <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        Ogni progetto è costruito su misura del cliente e parte da una{" "}
-        <span className="text-foreground">quota una tantum di base</span>, a cui si aggiungono i
-        moduli attivati. Dal go-live si aggiunge un{" "}
-        <span className="text-foreground">canone mensile</span> che dipende da dove il sistema è
-        ospitato: sui vostri server oppure sul cloud ALICE.
+        Potete costruire il gestionale{" "}
+        <span className="text-foreground">completamente su misura</span> sui vostri processi,
+        oppure partire da una <span className="text-foreground">soluzione già pronta</span> per il
+        vostro settore: più veloce da attivare e più economica.
       </p>
 
-      {/* Step 1 — base */}
-      <section className="mt-14 card-surface p-7">
-        <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          01 — Base una tantum
-        </p>
-        <p className="mt-2 font-display text-4xl font-semibold">€ {eur(BASE_SETUP)}</p>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Analisi dei processi, progettazione su misura, setup dell'ambiente e Cardinal come hub
-          dell'ecosistema.
-        </p>
+      {/* Step 0 — modalità */}
+      <section className="mt-12 grid gap-4 md:grid-cols-2">
+        {(
+          [
+            {
+              id: "custom" as Mode,
+              title: "Gestionale su misura",
+              price: `da € ${eur(BASE_SETUP)} una tantum`,
+              text: "Analisi dei vostri processi, progettazione dedicata e scelta libera di tutti i moduli dell'ecosistema ALICE.",
+            },
+            {
+              id: "ready" as Mode,
+              title: "Soluzioni già pronte",
+              price: `da € ${eur(Math.min(...VERTICAL_SOLUTIONS.map((s) => s.setup)))} una tantum`,
+              text: "Gestionali verticali per hotel, negozi, turismo e artigiani: attivazione rapida e canone contenuto.",
+            },
+          ]
+        ).map((opt) => {
+          const active = mode === opt.id;
+          return (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => setMode(opt.id)}
+              aria-pressed={active}
+              className={`card-surface p-6 text-left ${
+                active ? "border-primary shadow-[var(--shadow-gold)]" : ""
+              }`}
+            >
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h2 className="font-display text-xl font-semibold">{opt.title}</h2>
+                <span className="font-mono text-sm text-primary">{opt.price}</span>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{opt.text}</p>
+            </button>
+          );
+        })}
       </section>
+
+      {/* Step 1 — base */}
+      {mode === "custom" ? (
+        <section className="mt-14 card-surface p-7">
+          <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
+            01 — Base una tantum
+          </p>
+          <p className="mt-2 font-display text-4xl font-semibold">€ {eur(BASE_SETUP)}</p>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            Analisi dei processi, progettazione su misura, setup dell'ambiente e Cardinal come hub
+            dell'ecosistema.
+          </p>
+        </section>
+      ) : (
+        <section className="mt-14">
+          <h2 className="text-2xl md:text-3xl">01 — Scegliete la soluzione</h2>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            Ogni soluzione è un gestionale completo già configurato per il settore, costruito sulla
+            stessa piattaforma ALICE e sempre estendibile in futuro.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {VERTICAL_SOLUTIONS.map((s) => {
+              const active = s.id === solution.id;
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => {
+                    setSolutionId(s.id);
+                    setSolutionExtras([]);
+                  }}
+                  aria-pressed={active}
+                  className={`card-surface p-6 text-left ${
+                    active ? "border-primary shadow-[var(--shadow-gold)]" : ""
+                  }`}
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="font-display text-xl font-semibold">{s.name}</h3>
+                    <StatusBadge status={s.status} />
+                  </div>
+                  <p className="mt-1 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                    {s.sector}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {s.description}
+                  </p>
+                  <ul className="mt-4 space-y-1.5 text-sm text-muted-foreground">
+                    {s.includes.map((f) => (
+                      <li key={f} className="flex gap-2">
+                        <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-4 font-mono text-xs text-primary">
+                    € {eur(s.setup)} una tantum · da € {eur(s.monthlyOnPremise)} / mese
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Step 2 — hosting */}
       <section className="mt-14">
@@ -104,6 +220,12 @@ function Pricing() {
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {HOSTING_OPTIONS.map((h) => {
             const active = h.id === hosting.id;
+            const monthly =
+              mode === "custom"
+                ? h.monthly
+                : h.id === "cloud"
+                  ? solution.monthlyCloud
+                  : solution.monthlyOnPremise;
             return (
               <button
                 key={h.id}
@@ -117,7 +239,7 @@ function Pricing() {
                 <div className="flex items-baseline justify-between gap-3">
                   <h3 className="font-display text-xl font-semibold">{h.name}</h3>
                   <span className="font-mono text-sm text-primary">
-                    € {eur(h.monthly)} / mese
+                    € {eur(monthly)} / mese
                   </span>
                 </div>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -131,11 +253,13 @@ function Pricing() {
 
       {/* Step 3 — moduli */}
       <section className="mt-14">
-        <h2 className="text-2xl md:text-3xl">03 — Moduli dell'ecosistema</h2>
+        <h2 className="text-2xl md:text-3xl">
+          03 — {mode === "custom" ? "Moduli dell'ecosistema" : "Estensioni opzionali"}
+        </h2>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          Selezionate solo ciò che vi serve: quasi tutti i moduli incidono solo sulla quota una
-          tantum e non aumentano il canone. Fanno eccezione i moduli che richiedono risorse dedicate
-          e servizi sempre attivi.
+          {mode === "custom"
+            ? "Selezionate solo ciò che vi serve: quasi tutti i moduli incidono solo sulla quota una tantum e non aumentano il canone. Fanno eccezione i moduli che richiedono risorse dedicate e servizi sempre attivi."
+            : `Oltre a quanto già incluso in ${solution.name}, potete attivare questi moduli dell'ecosistema ALICE in qualsiasi momento.`}
         </p>
 
         <div className="mt-8 space-y-8">
@@ -146,7 +270,7 @@ function Pricing() {
               </h3>
               <div className="mt-3 grid gap-3 md:grid-cols-2">
                 {mods.map((m) => {
-                  const active = selected.includes(m.id);
+                  const active = activeModuleIds.includes(m.id);
                   const extraMonthly = moduleMonthly(m);
                   return (
                     <button
@@ -202,8 +326,10 @@ function Pricing() {
         <h2 className="text-2xl">Stima del vostro progetto</h2>
         <dl className="mt-6 space-y-2.5 text-sm">
           <div className="flex justify-between gap-4">
-            <dt className="text-muted-foreground">Base una tantum</dt>
-            <dd className="font-mono">€ {eur(BASE_SETUP)}</dd>
+            <dt className="text-muted-foreground">
+              {mode === "custom" ? "Base una tantum" : `${solution.name} — attivazione`}
+            </dt>
+            <dd className="font-mono">€ {eur(totals.baseSetup)}</dd>
           </div>
           {totals.mods.map((m) => (
             <div key={m.id} className="flex justify-between gap-4">
@@ -213,7 +339,7 @@ function Pricing() {
           ))}
           <div className="flex justify-between gap-4 border-t border-border pt-2.5">
             <dt className="text-muted-foreground">Canone base — {hosting.name}</dt>
-            <dd className="font-mono">€ {eur(hosting.monthly)} / mese</dd>
+            <dd className="font-mono">€ {eur(totals.baseMonthly)} / mese</dd>
           </div>
           {totals.mods
             .filter((m) => moduleMonthly(m) > 0)
@@ -246,9 +372,8 @@ function Pricing() {
         </div>
 
         <p className="mt-6 text-xs leading-relaxed text-muted-foreground">
-          Le cifre sono una stima indicativa: ogni progetto è su misura e il preventivo definitivo
-          viene concordato dopo l'analisi, in base a integrazioni, volumi di dati e
-          personalizzazioni richieste.
+          Le cifre sono una stima indicativa: il preventivo definitivo viene concordato dopo
+          l'analisi, in base a integrazioni, volumi di dati e personalizzazioni richieste.
         </p>
 
         <Link
@@ -262,7 +387,7 @@ function Pricing() {
       <section className="mt-20">
         <h2 className="text-2xl md:text-3xl">Servizi aggiuntivi</h2>
         <p className="mt-3 text-muted-foreground">
-          Attivabili in qualsiasi momento, indipendentemente dai moduli scelti.
+          Attivabili in qualsiasi momento, sia sui progetti su misura sia sulle soluzioni pronte.
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {PRICING_EXTRAS.map((a) => (
@@ -281,8 +406,8 @@ function Pricing() {
         <h2 className="text-xl">Come si arriva al prezzo finale</h2>
         <ol className="mt-5 grid gap-5 md:grid-cols-4">
           {[
-            ["01", "Base", "Quota di avvio: analisi, ambiente e Cardinal come hub."],
-            ["02", "Su misura", "Ogni progetto viene disegnato sui vostri processi reali."],
+            ["01", "Punto di partenza", "Progetto su misura oppure soluzione pronta per il settore."],
+            ["02", "Base", "Quota di avvio: analisi, ambiente e configurazione iniziale."],
             ["03", "Moduli", "Ogni modulo attivato incide sulla una tantum, raramente sul canone."],
             ["04", "Hosting", "On premise o cloud ALICE: determina il canone mensile."],
           ].map(([n, t, d]) => (
