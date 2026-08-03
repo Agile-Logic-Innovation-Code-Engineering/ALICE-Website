@@ -37,7 +37,7 @@ export const PROJECTS: Project[] = [
     standalone: false,
     integrated: true,
     platforms: ["Web", "Desktop"],
-    status: "development",
+    status: "planned", // "development",
     features: [
       "Application launcher",
       "Dashboard unificata",
@@ -54,7 +54,7 @@ export const PROJECTS: Project[] = [
     standalone: true,
     integrated: true,
     platforms: ["Web", "API"],
-    status: "development",
+    status: "planned", // "development",
     features: [
       "Gestione utenti e organizzazioni",
       "Ruoli e permessi",
@@ -70,7 +70,7 @@ export const PROJECTS: Project[] = [
     standalone: true,
     integrated: true,
     platforms: ["Web"],
-    status: "development",
+    status: "planned", // "development",
     features: [
       "CRM e gestione clienti",
       "Preventivi e fatturazione",
@@ -208,7 +208,7 @@ export const PRICING_MODULES: PricingModule[] = [
     setup: 900,
     monthlyOnPremise: 0,
     monthlyCloud: 0,
-    status: "development",
+    status: "planned", // "development",
   },
   {
     id: "fatturazione",
@@ -218,7 +218,7 @@ export const PRICING_MODULES: PricingModule[] = [
     setup: 1100,
     monthlyOnPremise: 0,
     monthlyCloud: 0,
-    status: "development",
+    status: "planned", // "development",
   },
   {
     id: "documenti",
@@ -228,7 +228,7 @@ export const PRICING_MODULES: PricingModule[] = [
     setup: 700,
     monthlyOnPremise: 0,
     monthlyCloud: 0,
-    status: "development",
+    status: "planned", // "development",
   },
   {
     id: "ticketing",
@@ -238,7 +238,7 @@ export const PRICING_MODULES: PricingModule[] = [
     setup: 800,
     monthlyOnPremise: 0,
     monthlyCloud: 0,
-    status: "development",
+    status: "planned", // "development",
   },
   {
     id: "magazzino",
@@ -368,7 +368,7 @@ export const VERTICAL_SOLUTIONS: VerticalSolution[] = [
     setup: 2400,
     monthlyOnPremise: 240,
     monthlyCloud: 420,
-    status: "development",
+    status: "planned", // "development",
     includes: [
       "Punto cassa e scontrini",
       "Magazzino e giacenze",
