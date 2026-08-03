@@ -356,7 +356,7 @@ export const VERTICAL_SOLUTIONS: VerticalSolution[] = [
       "Anagrafica ospiti e conti",
       "Fatturazione e corrispettivi",
     ],
-    optionalModuleIds: ["documenti", "ticketing", "yui"],
+    optionalModuleIds: ["light-cube-pro", "documenti", "ticketing", "yui", "ordinal-scale"],
   },
   {
     id: "agil",
@@ -376,7 +376,7 @@ export const VERTICAL_SOLUTIONS: VerticalSolution[] = [
       "Anagrafica clienti e fidelity",
       "Report vendite",
     ],
-    optionalModuleIds: ["crm", "fatturazione", "yui"],
+    optionalModuleIds: ["light-cube-pro", "crm", "fatturazione", "yui", "ordinal-scale"],
   },
   {
     id: "argo",
@@ -396,7 +396,7 @@ export const VERTICAL_SOLUTIONS: VerticalSolution[] = [
       "Prenotazioni online",
       "Incassi e report",
     ],
-    optionalModuleIds: ["crm", "documenti", "yui"],
+    optionalModuleIds: ["light-cube-pro", "crm", "documenti", "yui", "ordinal-scale"],
   },
   {
     id: "lizbeth",
@@ -416,6 +416,6 @@ export const VERTICAL_SOLUTIONS: VerticalSolution[] = [
       "Preventivi e fatture",
       "Storico clienti",
     ],
-    optionalModuleIds: ["crm", "documenti", "ticketing"],
+    optionalModuleIds: ["light-cube-pro", "crm", "documenti", "ticketing", "ordinal-scale"],
   },
 ];

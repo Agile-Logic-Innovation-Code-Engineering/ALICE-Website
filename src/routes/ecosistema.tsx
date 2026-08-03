@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check, Minus } from "lucide-react";
-import { PROJECTS, STATUS } from "@/data/alice";
+import { PROJECTS, STATUS, VERTICAL_SOLUTIONS } from "@/data/alice";
 import { StatusBadge, STATUS_DOT } from "@/components/StatusBadge";
 
 export const Route = createFileRoute("/ecosistema")({
@@ -111,6 +111,46 @@ function Ecosystem() {
           </article>
         ))}
       </div>
+
+      <section className="mt-24">
+        <h2 className="font-display text-3xl font-semibold md:text-4xl">Soluzioni pronte</h2>
+        <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
+          Gestionali già configurati per settori specifici, costruiti sulla stessa piattaforma ALICE
+          ed estendibili con i moduli dell'ecosistema.
+        </p>
+
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          {VERTICAL_SOLUTIONS.map((s) => (
+            <article key={s.id} className="card-surface p-7">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <h3 className="font-display text-2xl font-semibold">{s.name}</h3>
+                  <p className="mt-1 font-mono text-xs uppercase tracking-widest text-primary">
+                    {s.sector}
+                  </p>
+                </div>
+                <StatusBadge status={s.status} />
+              </div>
+              <p className="mt-4 leading-relaxed text-muted-foreground">{s.description}</p>
+              <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+                {s.includes.map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <Link
+          to="/prezzi"
+          className="mt-8 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-secondary"
+        >
+          Configura la tua soluzione
+        </Link>
+      </section>
     </div>
   );
 }
