@@ -258,7 +258,7 @@ export const PRICING_MODULES: PricingModule[] = [
     setup: 950,
     monthlyOnPremise: 0,
     monthlyCloud: 0,
-    status: "development",
+    status: "planned", // "development",
   },
   {
     id: "yui",
