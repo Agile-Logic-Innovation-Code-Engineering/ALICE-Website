@@ -100,12 +100,13 @@ function Pricing() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-20">
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Prezzi</p>
-      <h1 className="mt-3 text-4xl md:text-5xl">Due strade, un solo ecosistema</h1>
+      <h1 className="mt-3 text-4xl md:text-5xl">Scegliete come partire</h1>
       <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        Potete costruire il gestionale{" "}
-        <span className="text-foreground">completamente su misura</span> sui vostri processi,
-        oppure partire da una <span className="text-foreground">soluzione già pronta</span> per il
-        vostro settore: più veloce da attivare e più economica.
+        Se avete processi particolari costruiamo il gestionale{" "}
+        <span className="text-foreground">su misura</span> su come lavorate. Se invece vi servono
+        subito le cose essenziali, una <span className="text-foreground">soluzione già pronta</span>{" "}
+        per il vostro settore parte prima e costa meno. In entrambi i casi vedete il prezzo qui
+        sotto, prima ancora di chiamarci.
       </p>
 
       {/* Step 0 — modalità */}
@@ -116,13 +117,13 @@ function Pricing() {
               id: "custom" as Mode,
               title: "Gestionale su misura",
               price: `da € ${eur(BASE_SETUP)} una tantum`,
-              text: "Analisi dei vostri processi, progettazione dedicata e scelta libera di tutti i moduli dell'ecosistema ALICE.",
+              text: "Studiamo come lavorate e costruiamo il gestionale attorno ai vostri processi, con tutti i moduli che volete.",
             },
             {
               id: "ready" as Mode,
               title: "Soluzioni già pronte",
               price: `da € ${eur(Math.min(...VERTICAL_SOLUTIONS.map((s) => s.setup)))} una tantum`,
-              text: "Gestionali verticali per hotel, negozi, turismo e artigiani: attivazione rapida e canone contenuto.",
+              text: "Per hotel, negozi, turismo e artigiani: già configurate, attive in poco tempo e con un canone contenuto.",
             },
           ]
         ).map((opt) => {
@@ -155,16 +156,16 @@ function Pricing() {
           </p>
           <p className="mt-2 font-display text-4xl font-semibold">€ {eur(BASE_SETUP)}</p>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Analisi dei processi, progettazione su misura, setup dell'ambiente e Cardinal come hub
-            dell'ecosistema.
+            Comprende l'analisi di come lavorate, la progettazione su misura, la messa in funzione
+            del sistema e Cardinal, il punto da cui gestite tutto.
           </p>
         </section>
       ) : (
         <section className="mt-14">
           <h2 className="text-2xl md:text-3xl">01 — Scegliete la soluzione</h2>
           <p className="mt-3 max-w-2xl text-muted-foreground">
-            Ogni soluzione è un gestionale completo già configurato per il settore, costruito sulla
-            stessa piattaforma ALICE e sempre estendibile in futuro.
+            Ogni soluzione è un gestionale completo, già impostato per il settore: si usa da subito
+            e resta espandibile quando l'attività cresce.
           </p>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             {VERTICAL_SOLUTIONS.map((s) => {

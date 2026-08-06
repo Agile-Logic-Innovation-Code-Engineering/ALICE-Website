@@ -11,13 +11,15 @@ export const Route = createFileRoute("/contatti")({
       {
         name: "description",
         content:
-          "Raccontaci il tuo processo aziendale: prepariamo un preventivo per il gestionale modulare ALICE, con quota di avvio e canone mensile.",
+          "Raccontaci cosa vi fa perdere tempo: vi proponiamo il gestionale giusto con costi chiari, quota di avvio e canone mensile.",
       },
       { property: "og:title", content: "Contatti — richiedi un preventivo ad ALICE" },
       {
         property: "og:description",
-        content: "Parliamo del tuo progetto gestionale: analisi gratuita e preventivo chiaro.",
+        content: "Analisi gratuita e preventivo chiaro per il vostro gestionale.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Contact,
@@ -45,8 +47,9 @@ function Contact() {
     <div className="mx-auto max-w-6xl px-6 py-20">
       <h1 className="text-4xl font-bold md:text-5xl">Parliamone</h1>
       <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        Raccontaci come lavora oggi la tua azienda. Ti rispondiamo con una proposta concreta: moduli
-        consigliati, quota di avvio e canone mensile.
+        Raccontaci cosa oggi vi fa perdere più tempo. Vi rispondiamo con una proposta concreta:
+        cosa conviene attivare per primo, quanto costa partire e quanto costa mantenerlo — senza
+        impegno.
       </p>
 
       <div className="mt-14 grid gap-10 md:grid-cols-[1.2fr_0.8fr]">

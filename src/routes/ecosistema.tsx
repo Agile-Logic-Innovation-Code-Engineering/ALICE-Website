@@ -6,17 +6,19 @@ import { StatusBadge, STATUS_DOT } from "@/components/StatusBadge";
 export const Route = createFileRoute("/ecosistema")({
   head: () => ({
     meta: [
-      { title: "Ecosistema ALICE — Cardinal, Underworld, Light-Cube e Yui" },
+      { title: "Cosa possiamo gestire — le applicazioni ALICE" },
       {
         name: "description",
         content:
-          "Tutti i progetti dell'ecosistema ALICE: ruolo, piattaforme supportate, funzionalità e stato di sviluppo di ciascun modulo.",
+          "Dalla gestione clienti alla fatturazione, dall'assistente AI alle soluzioni pronte per hotel, negozi, turismo e artigiani: cosa risolve ogni applicazione ALICE.",
       },
-      { property: "og:title", content: "Ecosistema ALICE — i moduli della piattaforma" },
+      { property: "og:title", content: "Cosa possiamo gestire — le applicazioni ALICE" },
       {
         property: "og:description",
-        content: "Ruolo, piattaforme e stato di sviluppo di ogni applicazione ALICE.",
+        content: "Ogni applicazione risolve un problema preciso e funziona anche da sola.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Ecosystem,
@@ -25,10 +27,11 @@ export const Route = createFileRoute("/ecosistema")({
 function Ecosystem() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-20">
-      <h1 className="text-4xl font-bold md:text-5xl">Ecosistema</h1>
+      <h1 className="text-4xl font-bold md:text-5xl">Cosa possiamo gestire</h1>
       <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-        Ogni progetto può funzionare in modo indipendente oppure integrarsi con gli altri attraverso
-        Cardinal. Qui trovate il quadro completo, con lo stato di avanzamento aggiornato.
+        Ogni applicazione risolve un problema concreto e funziona anche da sola: potete iniziare da
+        quella che vi serve oggi e collegare le altre quando siete pronti. Qui trovate cosa fa
+        ciascuna e a che punto è lo sviluppo.
       </p>
 
       <div className="mt-8 flex flex-wrap gap-2">
@@ -115,8 +118,8 @@ function Ecosystem() {
       <section className="mt-24">
         <h2 className="font-display text-3xl font-semibold md:text-4xl">Soluzioni pronte</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
-          Gestionali già configurati per settori specifici, costruiti sulla stessa piattaforma ALICE
-          ed estendibili con i moduli dell'ecosistema.
+          Gestionali già impostati per settori specifici: costano meno di un progetto su misura,
+          partono subito e restano estendibili con gli altri moduli quando l'attività cresce.
         </p>
 
         <div className="mt-10 grid gap-4 md:grid-cols-2">

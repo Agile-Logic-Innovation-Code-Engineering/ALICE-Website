@@ -33,7 +33,7 @@ export const PROJECTS: Project[] = [
     name: "Cardinal",
     role: "Core Platform",
     description:
-      "Il punto di ingresso dell'intero ecosistema ALICE: launcher applicazioni, dashboard, notifiche, gestione moduli, configurazione centrale, API Gateway e livello di integrazione.",
+      "Cardinal è il cuore dell'ecosistema ALICE: collega tutte le applicazioni, gestisce utenti, notifiche e integrazioni. Un solo posto da cui l'azienda controlla tutto, senza saltare da un programma all'altro.",
     standalone: false,
     integrated: true,
     platforms: ["Web", "Desktop"],
@@ -50,7 +50,7 @@ export const PROJECTS: Project[] = [
     name: "Light-Cube",
     role: "Identity & Access",
     description:
-      "Gestione di identità e accessi condivisa da ogni applicazione: utenti, organizzazioni, ruoli e permessi, autenticazione applicativa e API.",
+      "Light-Cube protegge i vostri dati decidendo chi può vedere e fare cosa: un unico accesso per tutte le applicazioni, ruoli e permessi chiari, niente password sparse tra i reparti.",
     standalone: true,
     integrated: true,
     platforms: ["Web", "API"],
@@ -66,7 +66,7 @@ export const PROJECTS: Project[] = [
     name: "Underworld",
     role: "Management Software",
     description:
-      "Il gestionale modulare costruito su Cardinal: CRM, clienti, preventivi, fatturazione, documenti e ticketing, con magazzino e finance in arrivo.",
+      "Underworld manda avanti il lavoro quotidiano: clienti, preventivi, fatture, documenti e assistenza in un unico gestionale. Meno fogli Excel, meno tempo perso, tutto lo storico sempre a portata di mano.",
     standalone: true,
     integrated: true,
     platforms: ["Web"],
@@ -83,7 +83,7 @@ export const PROJECTS: Project[] = [
     name: "Yui",
     role: "AI Assistant",
     description:
-      "Automazione intelligente trasversale all'ecosistema: genera documenti, riassume riunioni, cerca dati aziendali ed esegue workflow.",
+      "Yui è l'assistente che toglie il lavoro ripetitivo dalle mani del team: scrive e riassume documenti, ritrova in un attimo i dati aziendali e porta a termine le procedure al posto vostro.",
     standalone: true,
     integrated: true,
     platforms: ["Web", "Desktop"],
@@ -99,7 +99,7 @@ export const PROJECTS: Project[] = [
     name: "Ordinal Scale",
     role: "Communication",
     description:
-      "Piattaforma di messaggistica e collaborazione enterprise, integrata con Cardinal e Yui.",
+      "Ordinal Scale tiene unito il team: messaggi, canali, chiamate e file nello stesso posto in cui si lavora, così le decisioni restano collegate ai clienti e ai progetti invece di perdersi nelle chat personali.",
     standalone: true,
     integrated: true,
     platforms: ["Mobile", "Desktop"],
@@ -115,7 +115,7 @@ export const PROJECTS: Project[] = [
     name: "Augma-OS",
     role: "Smart Glasses OS",
     description:
-      "Sistema operativo leggero per dispositivi indossabili, con interfaccia a bassa latenza e gestione remota via Cardinal.",
+      "Augma-OS porta il gestionale davanti agli occhi di chi lavora sul campo: istruzioni, dati e conferme a mani libere, senza tornare al computer per registrare quello che è stato fatto.",
     standalone: true,
     integrated: true,
     platforms: ["Smart Glasses"],
@@ -131,7 +131,7 @@ export const PROJECTS: Project[] = [
     name: "Aincrad",
     role: "Secure Operating System",
     description:
-      "Sistema operativo desktop leggero orientato a sicurezza, performance e privacy, con deployment enterprise.",
+      "Aincrad rende sicure e veloci le postazioni di lavoro: un sistema operativo leggero che protegge i dati aziendali, allunga la vita ai computer esistenti e si aggiorna senza fermare nessuno.",
     standalone: true,
     integrated: true,
     platforms: ["PC"],
@@ -141,13 +141,13 @@ export const PROJECTS: Project[] = [
 ];
 
 export const PRINCIPLES = [
-  { title: "Modular by design", text: "Ogni applicazione ha valore da sola e si potenzia insieme alle altre." },
-  { title: "API-first", text: "Ogni funzione è esposta via API: integrazione con i vostri sistemi senza attriti." },
-  { title: "Privacy focused", text: "Dati minimizzati, controllo degli accessi granulare, hosting a scelta." },
-  { title: "Lightweight", text: "Software rapido, sobrio, che non richiede hardware costoso." },
-  { title: "Cross-platform", text: "Web, desktop, mobile e dispositivi indossabili." },
-  { title: "AI-assisted workflows", text: "L'automazione intelligente è parte della piattaforma, non un extra." },
-  { title: "Open integration", text: "Nessun lock-in: import, export e connettori verso terze parti." },
+  { title: "Si parte da ciò che serve", text: "Attivate solo i moduli utili oggi: nessuna spesa per funzioni che non usereste." },
+  { title: "Parla con i vostri sistemi", text: "Tutto è collegabile ai programmi che già usate: niente doppi inserimenti." },
+  { title: "I dati restano vostri", text: "Accessi controllati persona per persona e hosting dove preferite: vostri server o cloud ALICE." },
+  { title: "Veloce anche su PC normali", text: "Software leggero: non serve cambiare hardware per lavorare senza attese." },
+  { title: "Ovunque lavoriate", text: "Ufficio, negozio, cantiere o in mobilità: web, desktop, mobile e dispositivi indossabili." },
+  { title: "Meno lavoro ripetitivo", text: "L'AI compila, riassume e cerca al posto vostro: il team si concentra sui clienti." },
+  { title: "Liberi di cambiare idea", text: "Import ed export sempre disponibili: nessun vincolo che vi tenga prigionieri." },
 ];
 
 /* ---------- PRICING (tutti i valori sono modificabili) ---------- */
@@ -342,9 +342,9 @@ export const VERTICAL_SOLUTIONS: VerticalSolution[] = [
     id: "asuna",
     name: "Asuna",
     sector: "Hotel e strutture ricettive",
-    tagline: "Gestione camere, prenotazioni e ospiti",
+    tagline: "Camere sempre piene, reception senza stress",
     description:
-      "Il gestionale pronto all'uso per hotel, B&B e strutture ricettive: calendario camere, prenotazioni, check-in/check-out, tariffe stagionali e conti degli ospiti.",
+      "Asuna toglie il caos dalla reception: vedete a colpo d'occhio camere libere e occupate, evitate overbooking, gestite tariffe e conti degli ospiti in pochi clic e chiudete la giornata con i numeri già pronti.",
     setup: 2900,
     monthlyOnPremise: 290,
     monthlyCloud: 490,
@@ -362,9 +362,9 @@ export const VERTICAL_SOLUTIONS: VerticalSolution[] = [
     id: "agil",
     name: "Agil",
     sector: "Negozi e retail",
-    tagline: "Vendite, magazzino e cassa",
+    tagline: "Vendere di più sapendo sempre cosa avete in negozio",
     description:
-      "Pensato per negozi e piccole catene: punto cassa, listini e promozioni, magazzino con giacenze in tempo reale e report sulle vendite.",
+      "Agil rende la cassa veloce e il magazzino affidabile: giacenze aggiornate a ogni vendita, promozioni gestite senza errori e report chiari su cosa gira davvero e cosa resta fermo sugli scaffali.",
     setup: 2400,
     monthlyOnPremise: 240,
     monthlyCloud: 420,
@@ -382,9 +382,9 @@ export const VERTICAL_SOLUTIONS: VerticalSolution[] = [
     id: "argo",
     name: "Argo",
     sector: "Attrazioni turistiche e guide",
-    tagline: "Biglietti, tour e disponibilità",
+    tagline: "Più prenotazioni, zero doppioni in calendario",
     description:
-      "Per musei, parchi, attrazioni e guide turistiche: calendario delle esperienze, biglietteria, gruppi e accompagnatori, con incassi sempre sotto controllo.",
+      "Argo tiene sotto controllo visite, tour e gruppi: disponibilità aggiornata in tempo reale, prenotazioni online che entrano da sole nel calendario, check-in rapido all'ingresso e incassi sempre quadrati.",
     setup: 2700,
     monthlyOnPremise: 260,
     monthlyCloud: 450,
@@ -402,9 +402,9 @@ export const VERTICAL_SOLUTIONS: VerticalSolution[] = [
     id: "lizbeth",
     name: "Lizbeth",
     sector: "Artigiani e laboratori",
-    tagline: "Commesse, materiali e preventivi",
+    tagline: "Sapere quanto costa davvero ogni lavoro",
     description:
-      "Il gestionale su misura per artigiani e laboratori: commesse di lavorazione, materiali impiegati, ore di lavoro, preventivi e fatture.",
+      "Lizbeth mette ordine in laboratorio: ogni commessa con materiali, ore e costi reali, preventivi pronti in pochi minuti e fatture che partono senza rincorrere i fogli sparsi in officina.",
     setup: 2200,
     monthlyOnPremise: 220,
     monthlyCloud: 390,
